@@ -9,4 +9,4 @@ I also made a nifty minimal interface using PyQt5.
 
 If you want to try it and tweak with the code, you can  download Gaia.py and the img folder and run it by yourself (make sure to install Pillow, PyQt5 and wxPython libraries).
 
-Alternatively, you can download the package with the .exe file from the link bellow and run Gaia.exe directly from there. https://drive.google.com/drive/folders/18odQu_yPSeRHY3FZwBQ_vsbz7W-U1LJu?usp=sharing
+Alternatively, you can just download the package with the .exe file from the link bellow and run Gaia.exe directly from there. https://drive.google.com/drive/folders/18odQu_yPSeRHY3FZwBQ_vsbz7W-U1LJu?usp=sharing
