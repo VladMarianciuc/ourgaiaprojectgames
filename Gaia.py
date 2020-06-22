@@ -1,21 +1,26 @@
 from PIL import Image
 import random
-
+import os # added 22.06.2020
 import pathlib
 import sys
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QWidget, QApplication, QDesktopWidget
 from PyQt5.QtCore import Qt, QPointF, QPoint
 from PyQt5 import QtCore, QtWidgets
 from functools import partial
-import wx
+#import wx - deleted 22.06.2020
+from tkinter import Tk # added 22.06.2020
 
-app = wx.App(False)
-x, y = wx.GetDisplaySize()
+root = Tk() # added 22.06.2020
+x = root.winfo_screenwidth() # added 22.06.2020
+y = root.winfo_screenheight() # added 22.06.2020
+
+#app = wx.App(False) - deleted 22.06.2020
+#x, y = wx.GetDisplaySize() - deleted 22.06.2020
 
 pathlib.Path().absolute()
 
 newpath = __file__.replace("Gaia.py", "")
-newpath2 = newpath.replace("/", "\\")
+newpath2 = newpath.replace("/", os.path.sep) #modified 22.06.2020
 
 
 class SpecialBG(QLabel):
@@ -43,7 +48,7 @@ def exittheapp():
 def gaia(value):
     global playersnumber
     playersnumber= value
-    map = Image.open(newpath2+"img\map3-4empty.jpg")
+    map = Image.open(newpath2+"img"+os.path.sep+"map3-4empty.jpg")
     map_copy = map.copy()
 
     coordinates = [(940, 900), (1667, 818), (1373, 1491), (646, 1571), (209, 981), (500, 307), (1229, 226), (1957, 143), (2394, 735), (2102, 1410)]
@@ -73,36 +78,36 @@ def gaia(value):
 
     for i in range(3+int(playersnumber)):
         a = random.choice(scroll_tiles)
-        tile = Image.open(newpath2+"img\scrolls" + "\\" + a)
+        tile = Image.open(newpath2+"img"+os.path.sep+"scrolls" + os.path.sep + a)
         map_copy.paste(tile, coordinates_scrolls[i], tile)
         scroll_tiles.remove(a)
 
     a = random.choice(cities_tiles)
-    tile = Image.open(newpath2+"img\cities" + "\\" + a)
+    tile = Image.open(newpath2+"img"+os.path.sep+"cities" + os.path.sep + a)
     map_copy.paste(tile, coordinates_cities[0], tile)
 
     for i in range(6):
         a = random.choice(round_tiles)
-        tile = Image.open(newpath2+"img"+"\\"+"roundscores" + "\\" + a)
+        tile = Image.open(newpath2+"img"+os.path.sep+"roundscores" + os.path.sep + a)
         rotated = tile.rotate(roundtiles_angles[i])
         map_copy.paste(rotated, coordinates_roundtiles[i], rotated)
         round_tiles.remove(a)
 
     for i in range(6):
         a = random.choice(r_a_tiles)
-        tile = Image.open(newpath2+"img"+"\\"+"advresearchtiles" + "\\" + a)
+        tile = Image.open(newpath2+"img"+os.path.sep+"advresearchtiles" + os.path.sep + a)
         map_copy.paste(tile, coordinates_ratiles[i], tile)
         r_a_tiles.remove(a)
 
     for i in range(2):
         a = random.choice(endgame_tiles)
-        tile = Image.open(newpath2+"img"+"\\"+"finalscoring" + "\\" + a)
+        tile = Image.open(newpath2+"img"+os.path.sep+"finalscoring" + os.path.sep + a)
         map_copy.paste(tile, coordinates_endgametiles[i], tile)
         endgame_tiles.remove(a)
 
     for i in range(9):
         a = random.choice(r_tiles)
-        tile = Image.open(newpath2+"img"+"\\"+"researchtiles" + "\\" + a)
+        tile = Image.open(newpath2+"img"+os.path.sep+"researchtiles" + os.path.sep + a)
         map_copy.paste(tile, coordinates_rtiles[i], tile)
         r_tiles.remove(a)
 
@@ -112,7 +117,7 @@ def gaia(value):
         while(k != 7):
             a = random.choice(tiles_2p)
             if(k == 0):
-                tile = Image.open(newpath2+"img" + "\\" + a)
+                tile = Image.open(newpath2+"img" + os.path.sep + a)
                 placedtiles.append(a)
                 map_copy.paste(tile, coordinates[k], tile)
                 tiles_2p.remove(a)
@@ -123,13 +128,13 @@ def gaia(value):
                         if(placedtiles[0] == "g02.png"):
                             match_numbers += 1
                         else:
-                            tile = Image.open(newpath2+"img" + "\\" + a)
+                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                             placedtiles.append(a)
                             map_copy.paste(tile, coordinates[k], tile)
                             tiles_2p.remove(a)
                             k += 1
                     else:
-                        tile = Image.open(newpath2+"img" + "\\" + a)
+                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                         placedtiles.append(a)
                         map_copy.paste(tile, coordinates[k], tile)
                         tiles_2p.remove(a)
@@ -140,13 +145,13 @@ def gaia(value):
                             if (placedtiles[0] == "g01.png"):
                                 match_numbers += 1
                             else:
-                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                 placedtiles.append(a)
                                 map_copy.paste(tile, coordinates[k], tile)
                                 tiles_2p.remove(a)
                                 k += 1
                         else:
-                            tile = Image.open(newpath2+"img" + "\\" + a)
+                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                             placedtiles.append(a)
                             map_copy.paste(tile, coordinates[k], tile)
                             tiles_2p.remove(a)
@@ -157,13 +162,13 @@ def gaia(value):
                                     if (placedtiles[2] == "g01.png"):
                                         match_numbers += 1
                                     else:
-                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                         placedtiles.append(a)
                                         map_copy.paste(tile, coordinates[k], tile)
                                         tiles_2p.remove(a)
                                         k += 1
                             else:
-                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                 placedtiles.append(a)
                                 map_copy.paste(tile, coordinates[k], tile)
                                 tiles_2p.remove(a)
@@ -174,7 +179,7 @@ def gaia(value):
                                     if (placedtiles[0] == "g01.png"):
                                         match_numbers += 1
                                     else:
-                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                         placedtiles.append(a)
                                         map_copy.paste(tile, coordinates[k], tile)
                                         tiles_2p.remove(a)
@@ -184,13 +189,13 @@ def gaia(value):
                                         if (placedtiles[3] == "g02.png"):
                                             match_numbers += 1
                                         else:
-                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                             placedtiles.append(a)
                                             map_copy.paste(tile, coordinates[k], tile)
                                             tiles_2p.remove(a)
                                             k += 1
                                     else:
-                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                         placedtiles.append(a)
                                         map_copy.paste(tile, coordinates[k], tile)
                                         tiles_2p.remove(a)
@@ -201,13 +206,13 @@ def gaia(value):
                                         if (placedtiles[0] == "g02.png"):
                                             match_numbers += 1
                                         else:
-                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                             placedtiles.append(a)
                                             map_copy.paste(tile, coordinates[k], tile)
                                             tiles_2p.remove(a)
                                             k += 1
                                     else:
-                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                         placedtiles.append(a)
                                         map_copy.paste(tile, coordinates[k], tile)
                                         tiles_2p.remove(a)
@@ -231,14 +236,14 @@ def gaia(value):
                                                     tiles_2p = placedtiles.copy()
                                                     del placedtiles[:]
                                                 else:
-                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                     placedtiles.append(a)
                                                     map_copy.paste(tile, coordinates[k], tile)
                                                     tiles_2p.remove(a)
                                                     k += 1
                                         else:
 
-                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                             placedtiles.append(a)
                                             map_copy.paste(tile, coordinates[k], tile)
                                             tiles_2p.remove(a)
@@ -252,7 +257,7 @@ def gaia(value):
         while (k != 10):
             a = random.choice(tiles)
             if(k == 0):
-                tile = Image.open(newpath2+"img" + "\\" + a)
+                tile = Image.open(newpath2+"img" + os.path.sep + a)
                 placedtiles.append(a)
                 map_copy.paste(tile, coordinates[k], tile)
                 tiles.remove(a)
@@ -263,7 +268,7 @@ def gaia(value):
                         if(placedtiles[0] == "g09.png"):
                             match_numbers += 1
                         else:
-                            tile = Image.open(newpath2+"img" + "\\" + a)
+                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                             placedtiles.append(a)
                             map_copy.paste(tile, coordinates[k], tile)
                             tiles.remove(a)
@@ -273,7 +278,7 @@ def gaia(value):
                             if (placedtiles[0] == "g02.png"):
                                 match_numbers += 1
                             else:
-                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                 placedtiles.append(a)
                                 map_copy.paste(tile, coordinates[k], tile)
                                 tiles.remove(a)
@@ -283,13 +288,13 @@ def gaia(value):
                                 if (placedtiles[0] == "g04.png"):
                                     match_numbers += 1
                                 else:
-                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                     placedtiles.append(a)
                                     map_copy.paste(tile, coordinates[k], tile)
                                     tiles.remove(a)
                                     k += 1
                             else:
-                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                 placedtiles.append(a)
                                 map_copy.paste(tile, coordinates[k], tile)
                                 tiles.remove(a)
@@ -307,7 +312,7 @@ def gaia(value):
                                     if (placedtiles[1] == "g03.png"):
                                         match_numbers += 1
                                     else:
-                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                         placedtiles.append(a)
                                         map_copy.paste(tile, coordinates[k], tile)
                                         tiles.remove(a)
@@ -317,7 +322,7 @@ def gaia(value):
                                 if (placedtiles[0] == "g01.png"):
                                     match_numbers += 1
                                 else:
-                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                     placedtiles.append(a)
                                     map_copy.paste(tile, coordinates[k], tile)
                                     tiles.remove(a)
@@ -327,13 +332,13 @@ def gaia(value):
                                     if (placedtiles[0] == "g01.png"):
                                         match_numbers += 1
                                     else:
-                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                         placedtiles.append(a)
                                         map_copy.paste(tile, coordinates[k], tile)
                                         tiles.remove(a)
                                         k += 1
                                 else:
-                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                     placedtiles.append(a)
                                     map_copy.paste(tile, coordinates[k], tile)
                                     tiles.remove(a)
@@ -344,7 +349,7 @@ def gaia(value):
                                 if (placedtiles[2] == "g01.png"):
                                     match_numbers += 1
                                 else:
-                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                     placedtiles.append(a)
                                     map_copy.paste(tile, coordinates[k], tile)
                                     tiles.remove(a)
@@ -354,7 +359,7 @@ def gaia(value):
                                     if (placedtiles[2] == "g04.png"):
                                         match_numbers += 1
                                     else:
-                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                         placedtiles.append(a)
                                         map_copy.paste(tile, coordinates[k], tile)
                                         tiles.remove(a)
@@ -364,7 +369,7 @@ def gaia(value):
                                         if (placedtiles[2] == "g10.png"):
                                             match_numbers += 1
                                         else:
-                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                             placedtiles.append(a)
                                             map_copy.paste(tile, coordinates[k], tile)
                                             tiles.remove(a)
@@ -377,13 +382,13 @@ def gaia(value):
                                                 if (placedtiles[0] == "g03.png"):
                                                     match_numbers += 1
                                                 else:
-                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                     placedtiles.append(a)
                                                     map_copy.paste(tile, coordinates[k], tile)
                                                     tiles.remove(a)
                                                     k += 1
                                         else:
-                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                             placedtiles.append(a)
                                             map_copy.paste(tile, coordinates[k], tile)
                                             tiles.remove(a)
@@ -394,7 +399,7 @@ def gaia(value):
                                     if (placedtiles[0] == "g01.png"):
                                         match_numbers += 1
                                     else:
-                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                         placedtiles.append(a)
                                         map_copy.paste(tile, coordinates[k], tile)
                                         tiles.remove(a)
@@ -404,7 +409,7 @@ def gaia(value):
                                         if (placedtiles[0] == "g04.png"):
                                             match_numbers += 1
                                         else:
-                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                             placedtiles.append(a)
                                             map_copy.paste(tile, coordinates[k], tile)
                                             tiles.remove(a)
@@ -417,7 +422,7 @@ def gaia(value):
                                                 if (placedtiles[3] == "g08.png"):
                                                     match_numbers += 1
                                                 else:
-                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                     placedtiles.append(a)
                                                     map_copy.paste(tile, coordinates[k], tile)
                                                     tiles.remove(a)
@@ -430,13 +435,13 @@ def gaia(value):
                                                     if(placedtiles[3] == "g09.png"):
                                                         match_numbers += 1
                                                     else:
-                                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                         placedtiles.append(a)
                                                         map_copy.paste(tile, coordinates[k], tile)
                                                         tiles.remove(a)
                                                         k += 1
                                             else:
-                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                 placedtiles.append(a)
                                                 map_copy.paste(tile, coordinates[k], tile)
                                                 tiles.remove(a)
@@ -450,7 +455,7 @@ def gaia(value):
                                             if (placedtiles[0] == "g09.png"):
                                                 match_numbers += 1
                                             else:
-                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                 placedtiles.append(a)
                                                 map_copy.paste(tile, coordinates[k], tile)
                                                 tiles.remove(a)
@@ -460,7 +465,7 @@ def gaia(value):
                                             if (placedtiles[0] == "g08.png"):
                                                 match_numbers += 1
                                             else:
-                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                 placedtiles.append(a)
                                                 map_copy.paste(tile, coordinates[k], tile)
                                                 tiles.remove(a)
@@ -470,7 +475,7 @@ def gaia(value):
                                                 if (placedtiles[4] == "g08.png"):
                                                     match_numbers += 1
                                                 else:
-                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                     placedtiles.append(a)
                                                     map_copy.paste(tile, coordinates[k], tile)
                                                     tiles.remove(a)
@@ -480,13 +485,13 @@ def gaia(value):
                                                     if (placedtiles[4] == "g08.png"):
                                                         match_numbers += 1
                                                     else:
-                                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                         placedtiles.append(a)
                                                         map_copy.paste(tile, coordinates[k], tile)
                                                         tiles.remove(a)
                                                         k += 1
                                                 else:
-                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                     placedtiles.append(a)
                                                     map_copy.paste(tile, coordinates[k], tile)
                                                     tiles.remove(a)
@@ -497,7 +502,7 @@ def gaia(value):
                                             if (placedtiles[5] == "g09.png"):
                                                 match_numbers += 1
                                             else:
-                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                 placedtiles.append(a)
                                                 map_copy.paste(tile, coordinates[k], tile)
                                                 tiles.remove(a)
@@ -513,7 +518,7 @@ def gaia(value):
                                                         if (placedtiles[1] == "g02.png"):
                                                             match_numbers += 1
                                                         else:
-                                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                             placedtiles.append(a)
                                                             map_copy.paste(tile, coordinates[k], tile)
                                                             tiles.remove(a)
@@ -526,7 +531,7 @@ def gaia(value):
                                                         if (placedtiles[0] == "g08.png"):
                                                             match_numbers += 1
                                                         else:
-                                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                             placedtiles.append(a)
                                                             map_copy.paste(tile, coordinates[k], tile)
                                                             tiles.remove(a)
@@ -536,13 +541,13 @@ def gaia(value):
                                                         if (placedtiles[0] == "g08.png"):
                                                             match_numbers += 1
                                                         else:
-                                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                             placedtiles.append(a)
                                                             map_copy.paste(tile, coordinates[k], tile)
                                                             tiles.remove(a)
                                                             k += 1
                                                     else:
-                                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                         placedtiles.append(a)
                                                         map_copy.paste(tile, coordinates[k], tile)
                                                         tiles.remove(a)
@@ -553,7 +558,7 @@ def gaia(value):
                                                 if (placedtiles[6] == "g09.png"):
                                                     match_numbers += 1
                                                 else:
-                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                     placedtiles.append(a)
                                                     map_copy.paste(tile, coordinates[k], tile)
                                                     tiles.remove(a)
@@ -563,7 +568,7 @@ def gaia(value):
                                                     if (placedtiles[6] == "g02.png"):
                                                         match_numbers += 1
                                                     else:
-                                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                         placedtiles.append(a)
                                                         map_copy.paste(tile, coordinates[k], tile)
                                                         tiles.remove(a)
@@ -576,7 +581,7 @@ def gaia(value):
                                                             if (placedtiles[6] == "g08.png"):
                                                                 match_numbers += 1
                                                             else:
-                                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                 placedtiles.append(a)
                                                                 map_copy.paste(tile, coordinates[k], tile)
                                                                 tiles.remove(a)
@@ -586,13 +591,13 @@ def gaia(value):
                                                             if (placedtiles[1] == "g08.png"):
                                                                 match_numbers += 1
                                                             else:
-                                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                 placedtiles.append(a)
                                                                 map_copy.paste(tile, coordinates[k], tile)
                                                                 tiles.remove(a)
                                                                 k += 1
                                                         else:
-                                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                             placedtiles.append(a)
                                                             map_copy.paste(tile, coordinates[k], tile)
                                                             tiles.remove(a)
@@ -603,7 +608,7 @@ def gaia(value):
                                                     if (placedtiles[1] == "g09.png"):
                                                         match_numbers += 1
                                                     else:
-                                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                         placedtiles.append(a)
                                                         map_copy.paste(tile, coordinates[k], tile)
                                                         tiles.remove(a)
@@ -613,7 +618,7 @@ def gaia(value):
                                                         if (placedtiles[1] == "g02.png"):
                                                             match_numbers += 1
                                                         else:
-                                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                             placedtiles.append(a)
                                                             map_copy.paste(tile, coordinates[k], tile)
                                                             tiles.remove(a)
@@ -623,7 +628,7 @@ def gaia(value):
                                                             if (placedtiles[1] == "g04.png"):
                                                                 match_numbers += 1
                                                             else:
-                                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                 placedtiles.append(a)
                                                                 map_copy.paste(tile, coordinates[k], tile)
                                                                 tiles.remove(a)
@@ -633,7 +638,7 @@ def gaia(value):
                                                                 if (placedtiles[7] == "g01.png"):
                                                                     match_numbers += 1
                                                                 else:
-                                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                     placedtiles.append(a)
                                                                     map_copy.paste(tile, coordinates[k], tile)
                                                                     tiles.remove(a)
@@ -643,7 +648,7 @@ def gaia(value):
                                                                     if (placedtiles[7] == "g01.png"):
                                                                         match_numbers += 1
                                                                     else:
-                                                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                         placedtiles.append(a)
                                                                         map_copy.paste(tile, coordinates[k], tile)
                                                                         tiles.remove(a)
@@ -653,13 +658,13 @@ def gaia(value):
                                                                         if (placedtiles[7] == "g04.png"):
                                                                             match_numbers += 1
                                                                         else:
-                                                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                             placedtiles.append(a)
                                                                             map_copy.paste(tile, coordinates[k], tile)
                                                                             tiles.remove(a)
                                                                             k += 1
                                                                     else:
-                                                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                         placedtiles.append(a)
                                                                         map_copy.paste(tile, coordinates[k], tile)
                                                                         tiles.remove(a)
@@ -689,7 +694,7 @@ def gaia(value):
                                                                     tiles = placedtiles.copy()
                                                                     del placedtiles[:]
                                                                 else:
-                                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                     placedtiles.append(a)
                                                                     map_copy.paste(tile, coordinates[k], tile)
                                                                     tiles.remove(a)
@@ -703,7 +708,7 @@ def gaia(value):
                                                                 tiles = placedtiles.copy()
                                                                 del placedtiles[:]
                                                             else:
-                                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                 placedtiles.append(a)
                                                                 map_copy.paste(tile, coordinates[k], tile)
                                                                 tiles.remove(a)
@@ -717,7 +722,7 @@ def gaia(value):
                                                                     tiles = placedtiles.copy()
                                                                     del placedtiles[:]
                                                                 else:
-                                                                    tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                    tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                     placedtiles.append(a)
                                                                     map_copy.paste(tile, coordinates[k], tile)
                                                                     tiles.remove(a)
@@ -731,7 +736,7 @@ def gaia(value):
                                                                         tiles = placedtiles.copy()
                                                                         del placedtiles[:]
                                                                     else:
-                                                                        tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                        tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                         placedtiles.append(a)
                                                                         map_copy.paste(tile, coordinates[k], tile)
                                                                         tiles.remove(a)
@@ -745,7 +750,7 @@ def gaia(value):
                                                                             tiles = placedtiles.copy()
                                                                             del placedtiles[:]
                                                                         else:
-                                                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                             placedtiles.append(a)
                                                                             map_copy.paste(tile, coordinates[k], tile)
                                                                             tiles.remove(a)
@@ -759,13 +764,13 @@ def gaia(value):
                                                                                 tiles = placedtiles.copy()
                                                                                 del placedtiles[:]
                                                                             else:
-                                                                                tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                                tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                                 placedtiles.append(a)
                                                                                 map_copy.paste(tile, coordinates[k], tile)
                                                                                 tiles.remove(a)
                                                                                 k += 1
                                                                         else:
-                                                                            tile = Image.open(newpath2+"img" + "\\" + a)
+                                                                            tile = Image.open(newpath2+"img" + os.path.sep + a)
                                                                             placedtiles.append(a)
                                                                             map_copy.paste(tile, coordinates[k], tile)
                                                                             tiles.remove(a)
@@ -773,9 +778,9 @@ def gaia(value):
         map_copy.save(newpath2+"generatedmap.png")
         map_copy.show()
 
-class SimpleRoundedCorners(QWidget):
+class Gaia(QWidget):
     def __init__(self):
-        super(SimpleRoundedCorners, self).__init__()
+        super(Gaia, self).__init__()
 
         self.initUI()
 
@@ -882,13 +887,13 @@ class SimpleRoundedCorners(QWidget):
         print(x)
         print(y)
         self.setGeometry(px, py, winwidth, winheight)
-        self.setWindowTitle('Simple Rounded Corners')
+        self.setWindowTitle('Gaia')
         self.show()
 
 
 def main():
     app = QApplication(sys.argv)
-    merry = SimpleRoundedCorners()
+    merry = Gaia()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
