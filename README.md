@@ -12,7 +12,6 @@ If you want to try it and tweak with the code, you can  download Gaia.py and the
 Alternatively, you can just download the package with the .exe file from the link bellow and run Gaia.exe directly from there. https://drive.google.com/drive/folders/18odQu_yPSeRHY3FZwBQ_vsbz7W-U1LJu?usp=sharing
 
 
-
 23.06.2020 Update
 - The code had a problem as you couldn't run it on linux because it was using Windows separator "\" in paths. Replaced every "\" with os.path.sep. Should work fine now.
 - Replaced wxPython lib with tkinter for getting the screen size
