@@ -15,3 +15,4 @@ Alternatively, you can just download the package with the .exe file from the lin
 23.06.2020 Update
 - The code had a problem as you couldn't run it on linux because it was using Windows separator "\\" in paths. Replaced every "\\" with os.path.sep. Should work fine now.
 - Replaced wxPython lib with tkinter for getting the screen size
+- Added distinct icon to Gaia.exe
